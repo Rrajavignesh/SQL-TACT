@@ -258,15 +258,9 @@ ID int identity (1,1) primary key
 
 INSERT INTO sample (Password)
 VALUES 
-    ('@*1.A5'),
-    ('@*1.6Q'),
-    ('@*56.0'),
-    ('ABCD'),
-    ('@/ABC'),
-    ('@-/6'),
-    ('@-*(56'),
-    ('@-/-6.9'),
-    ('@*9876');
+    ('@*1.545ggb')
+	
+   
 
 
 select*from sample
@@ -308,4 +302,37 @@ SELECT Password,
            ELSE 'invalid'
        END AS Result
 FROM sample;
+
+--query retrive
+SELECT Password
+FROM sample
+WHERE NOT (
+    LEFT(Password, 1) = '@'
+    AND CHARINDEX(SUBSTRING(Password, 2, 1), '+-*/') > 0
+    AND (
+       
+        (SUBSTRING(Password, 3, 1) = '.' 
+         AND SUBSTRING(Password, 4, 1) BETWEEN '0' AND '9'
+         AND SUBSTRING(Password, 5, 1) BETWEEN '0' AND '9' 
+         AND SUBSTRING(Password, 6, 1) BETWEEN '0' AND '9')
+
+      
+        OR (SUBSTRING(Password, 3, 1) BETWEEN '0' AND '9' 
+            AND SUBSTRING(Password, 4, 1) = '.' 
+            AND SUBSTRING(Password, 5, 1) BETWEEN '0' AND '9' 
+            AND SUBSTRING(Password, 6, 1) BETWEEN '0' AND '9')
+
+        
+        OR (SUBSTRING(Password, 3, 1) BETWEEN '0' AND '9' 
+            AND SUBSTRING(Password, 4, 1) BETWEEN '0' AND '9' 
+            AND SUBSTRING(Password, 5, 1) = '.' 
+            AND SUBSTRING(Password, 6, 1) BETWEEN '0' AND '9')
+
+      
+        OR (SUBSTRING(Password, 3, 1) BETWEEN '0' AND '9' 
+            AND SUBSTRING(Password, 4, 1) BETWEEN '0' AND '9'
+            AND SUBSTRING(Password, 5, 1) BETWEEN '0' AND '9' 
+            AND SUBSTRING(Password, 6, 1) BETWEEN '0' AND '9')
+    )
+);
 
