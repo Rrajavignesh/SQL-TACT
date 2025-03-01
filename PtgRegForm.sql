@@ -336,3 +336,104 @@ WHERE NOT (
     )
 );
 
+/*
+alter procedure training.sp_custinsert
+(
+
+@custname varchar(50)
+,@custcity varchar(60)
+)
+as
+begin
+insert into cust(name,city)
+select @custname ,@custcity
+end
+
+exec training.sp_custinsert 'Sushmi','Erode'
+go
+select*from cust
+
+
+
+alter procedure deletecust
+
+as
+begin
+delete from cust where customerid=8
+end
+go
+EXEC deletecust
+go
+select*from cust
+
+
+
+create procedure updatecust
+ as
+ begin
+ update cust set city='Thindal' where customerid='4'
+ end  
+go
+EXEC updatecust
+go
+select*from cust
+*/
+
+CREATE TABLE Training.Shop(
+ShopId int PRIMARY KEY IDENTITY(501,1),
+ShopName VARCHAR(20),
+Product VARCHAR(25)
+)
+
+INSERT INTO Training.Shop (ShopName,Product)
+VALUES('AVC','Sope'),
+('D-Mart','Shampoo'),
+('Kannan','Rice'),
+('GRT','Gee')
+
+SELECT * FROM Training.shop
+---------------------------------------
+ALTER PROCEDURE Training.SP_ShopInst
+(
+@SpName VARCHAR(20),
+@Prod VARCHAR(25)
+)
+AS
+BEGIN
+INSERT INTO Training.Shop(ShopName,Product)
+SELECT @SpName,@Prod
+END
+GO
+EXEC Training.SP_ShopInst 'Tata','Steel'
+SELECT * FROM Training.Shop
+---------------------------------------------
+CREATE PROCEDURE Training.Sp_ShopDel(
+@CSID int
+)
+AS
+BEGIN
+DELETE FROM Training.Shop
+WHERE ShopId=@CSID
+END
+GO
+EXEC Training.SP_ShopDel 506
+GO
+SELECT * FROM Training.Shop
+--------------------------------------------------
+ALTER PROCEDURE Training.Sp_ShopUpdt
+(
+@Prod VARCHAR(25),
+@SpId int
+)
+AS
+BEGIN
+UPDATE Training.Shop
+SET Product = @Prod
+WHERE ShopId=@SpId
+END
+GO
+EXEC Training.Sp_ShopUpdt 'Cookies',501
+GO
+SELECT * FROM Training.Shop
+
+------------------------------------------------------------
